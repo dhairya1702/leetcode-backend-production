@@ -29,9 +29,10 @@ asgi_app = socketio.ASGIApp(sio, app)
 # -----------------------------------------------------
 # basic health check route
 # -----------------------------------------------------
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 async def health_check():
     return {"status": "ok"}
+
 
 
 # -----------------------------------------------------
