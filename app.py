@@ -27,6 +27,14 @@ app = FastAPI()
 asgi_app = socketio.ASGIApp(sio, app)
 
 # -----------------------------------------------------
+# basic health check route
+# -----------------------------------------------------
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
+
+
+# -----------------------------------------------------
 # in-memory state (fine for single instance)
 # -----------------------------------------------------
 waiting_queue = []           # users waiting for a partner
