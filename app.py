@@ -16,7 +16,6 @@ log = logging.getLogger("leetpal")
 # -----------------------------------------------------
 # socket.io + fastapi setup
 # -----------------------------------------------------
-# ⚠️ replace <YOUR_EXTENSION_ID> with your actual Chrome extension ID
 sio = socketio.AsyncServer(
     async_mode="asgi",
     cors_allowed_origins=["chrome-extension://kfifpgihmoiogiimnkbifjomhegcgjhp"],
@@ -164,6 +163,14 @@ async def disconnect_manual(sid, data):
         log.info(f"[CLEANUP COMPLETE] {session_id} fully cleared.")
     else:
         log.warning(f"[WARN] Session {session_id} not found during manual disconnect.")
+
+
+# -----------------------------------------------------
+# optional: log socket connection errors
+# -----------------------------------------------------
+@sio.event
+async def connect_error(sid, data):
+    log.error(f"[CONNECT_ERROR] {sid[-4:]}: {data}")
 
 
 # -----------------------------------------------------
