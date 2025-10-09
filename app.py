@@ -19,7 +19,7 @@ log = logging.getLogger("leetpal")
 # ⚠️ replace <YOUR_EXTENSION_ID> with your actual Chrome extension ID
 sio = socketio.AsyncServer(
     async_mode="asgi",
-    cors_allowed_origins=["chrome-extension://<YOUR_EXTENSION_ID>"],
+    cors_allowed_origins=["chrome-extension://kfifpgihmoiogiimnkbifjomhegcgjhp"],
     ping_interval=25,      # seconds between heartbeats
     ping_timeout=10,       # drop dead sockets quickly
 )
