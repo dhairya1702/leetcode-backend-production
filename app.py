@@ -18,14 +18,11 @@ log = logging.getLogger("leetpal")
 # -----------------------------------------------------
 sio = socketio.AsyncServer(
     async_mode="asgi",
-    cors_allowed_origins=[
-        "chrome-extension://*",
-        "https://leetcode.com",
-        "https://leetcode-backend-production.onrender.com"
-    ],
+    cors_allowed_origins="*",
     ping_interval=25,
     ping_timeout=10,
 )
+
 
 app = FastAPI()
 asgi_app = socketio.ASGIApp(sio, app)
