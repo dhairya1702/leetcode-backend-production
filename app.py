@@ -166,6 +166,16 @@ async def disconnect_manual(sid, data):
     else:
         log.warning(f"[WARN] Session {session_id} not found during manual disconnect.")
 
+@sio.event
+async def typing(sid, data):
+    """Notify partner that user is typing."""
+    session_id = data.get("session_id")
+    if session_id not in active_sessions:
+        return
+
+    partner_sid = next((s for s in active_sessions[session_id] if s != sid), None)
+    if partner_sid:
+        await sio.emit("typing", {"from": sid[-4:]}, to=partner_sid)
 
 # -----------------------------------------------------
 # optional: log socket connection errors
